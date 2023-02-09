@@ -1,7 +1,8 @@
+const { register, activateAccount, login } = require("../controllers/user");
 const router = require("express").Router();
 
-router.get("/user", (req, res) => {
-  res.send("Welcome to user end");
-});
+router.post("/register", register);
+router.post("/activate", activateAccount);
+router.post("/login", login);
 
 module.exports = router;

@@ -1,14 +1,17 @@
-import { LiveVideo } from "./svg";
+import { Route, Routes } from "react-router-dom";
+import Home from "./pages/home";
+import Login from "./pages/login";
+import Profile from "./pages/profile";
 
 function App() {
-  const get = async () => {
-    const res = await fetch("http://localhost:8000");
-  };
-  get();
   return (
-    <>
-      <div> Welcome to Frontend </div>
-    </>
+    <div>
+      <Routes>
+        <Route path="/login" element={<Login />} exact />
+        <Route path="/profile" element={<Profile />} exact />
+        <Route path="/" element={<Home />} exact />
+      </Routes>
+    </div>
   );
 }
 
