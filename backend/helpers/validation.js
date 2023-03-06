@@ -14,6 +14,8 @@ const validateLength = (text, min, max) => {
 const validateUsername = async (username) => {
   let a = false;
 
+  console.log(username);
+
   do {
     let check = await User.findOne({ username });
     if (check) {

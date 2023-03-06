@@ -1,10 +1,14 @@
+import Cookies from "js-cookie";
+
 const { createSlice } = require("@reduxjs/toolkit");
 
 const userSlice = createSlice({
   name: "user",
-  initialState: null,
-  LOGIN(state, action) {
-    return action.payload;
+  initialState: Cookies.get("user") ? JSON.parse(Cookies.get("user")) : null,
+  reducers: {
+    LOGIN(state, action) {
+      return action.payload;
+    },
   },
 });
 const userReducer = userSlice.reducer;

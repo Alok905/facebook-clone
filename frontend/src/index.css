@@ -154,3 +154,8 @@ a {
     brightness(97%) contrast(96%);
 }
 /*----filters---*/
+.card {
+  height: 500px;
+  width: 500px;
+  background: red;
+}

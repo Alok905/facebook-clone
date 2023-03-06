@@ -54,8 +54,8 @@ exports.register = async (req, res) => {
     }
 
     const cryptedPassword = await bcrypt.hash(password, 12);
-    // let tempUsernme = first_name + last_name;
-    let newUsername = await validateUsername(username);
+    let tempUsername = first_name + last_name;
+    let newUsername = await validateUsername(tempUsername.toLowerCase());
 
     const user = await new User({
       first_name,
@@ -75,6 +75,7 @@ exports.register = async (req, res) => {
     );
 
     const url = `${process.env.BASE_URL}/activate/${emailVerificationToken}`;
+
     await sendVerificationEmail(user.email, user.first_name, url);
     const token = generateToken({ id: user._id.toString() }, "7d");
 
@@ -129,7 +130,6 @@ exports.login = async (req, res) => {
       last_name: user.last_name,
       token,
       verified: user.verified,
-      message: "Register success! Please activate your email to start",
     });
   } catch (error) {}
 };

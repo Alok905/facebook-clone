@@ -8,14 +8,23 @@ const RegisterInput = ({ placeholder, bottom, ...props }) => {
   const desktopView = useMediaQuery({
     query: "(min-width: 850px)",
   });
+  // const sideView = useMediaQuery({
+  //   query: "(min-width: 539px)",
+  // });
 
   return (
     <div className="input_wrap">
-      {meta.touched && meta.error && !bottom && (
+      <input
+        className={meta.touched && meta.error ? "input_error_border" : ""}
+        placeholder={placeholder}
+        {...field}
+        {...props}
+      />
+      {meta.touched && meta.error && bottom && (
         <div
           className={`input_error ${
             desktopView
-              ? field.name == "last_name"
+              ? field.name === "last_name"
                 ? "input_error_desktop_right"
                 : "input_error_desktop"
               : ""
@@ -26,36 +35,11 @@ const RegisterInput = ({ placeholder, bottom, ...props }) => {
           <div
             className={
               desktopView
-                ? field.name == "last_name"
+                ? field.name === "last_name"
                   ? "error_arrow_right"
                   : "error_arrow_left"
-                : "error_arrow_top"
+                : "error_arrow_bottom"
             }
-          ></div>
-        </div>
-      )}
-      <input
-        className={meta.touched && meta.error ? "input_error_border" : ""}
-        style={{
-          width: `${
-            desktopView &&
-            (field.name === "first_name" || field.name === "last_name")
-              ? "100%"
-              : ""
-          }`,
-        }}
-        placeholder={placeholder}
-        {...field}
-        {...props}
-      />
-      {meta.touched && meta.error && bottom && (
-        <div
-          className={`input_error ${desktopView ? "input_error_desktop" : ""}`}
-          style={{ transform: "translateY(-3px)" }}
-        >
-          <ErrorMessage name={field.name} />
-          <div
-            className={desktopView ? "error_arrow_left" : "error_arrow_bottom"}
           ></div>
         </div>
       )}

@@ -1,8 +1,10 @@
 /*---- Login  ----*/
 .login_wrapper {
   background: var(--bg-secondary);
-  /* display: flex;
-  justify-content: center; */
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .login_wrap {
   /* height: 70vh; */
@@ -122,6 +124,7 @@
   position: relative;
   width: 100%;
   display: flex;
+  flex-direction: column;
   /* align-self: flex-start; */
   margin-bottom: 10px;
   padding: 0 10px;
@@ -139,15 +142,21 @@
   margin-top: 3px;
 }
 .reg_grid {
-  margin-top: 20px;
+  /* margin-top: 20px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  height: 35px;
+  width: 100%; */
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
   gap: 10px;
   height: 35px;
   width: 100%;
 }
 .reg_grid select {
-  width: 90px;
+  width: 100%;
   font-size: 16px;
   color: var(--color-primary);
   background: var(--bg-primary);
@@ -226,6 +235,23 @@
   max-width: 900px;
 }
 /*---- Footer ----*/
+
+/*---- dob and gender errors  ----*/
+.reg_grid .input_error {
+  width: 100%;
+  position: absolute;
+}
+/*---- dob and gender errors  ----*/
+
+/*---- error and success styles ----*/
+.error_text {
+  color: #b94a48;
+}
+.success_text {
+  color: var(--green-color);
+}
+/*---- error and success styles ----*/
+
 /*---- Media queries  ----*/
 /* mine  */
 @media (max-width: 850px) {
@@ -264,6 +290,11 @@
   .login_footer_wrap {
     max-width: 520px;
   }
+  .register_form .reg_line:first-child {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+  }
 }
 @media (min-width: 650px) {
   .login_footer_wrap {
@@ -272,6 +303,7 @@
 }
 @media (min-width: 850px) {
   .login_wrap {
+    flex: 1;
     display: flex;
     align-items: center;
     max-width: 1000px;
@@ -294,7 +326,7 @@
     width: 400px;
   }
   .input_wrap {
-    width: 360px !important;
+    /* width: 360px !important; */
   }
   .login_footer_wrap {
     max-width: 900px;

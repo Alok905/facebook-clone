@@ -36,7 +36,7 @@ const userSchema = mongoose.Schema(
       type: String,
       trim: true,
       default:
-        "https://www.google.com/url?sa=i&url=https%3A%2F%2Fpixabay.com%2Fimages%2Fsearch%2Fuser%2F&psig=AOvVaw2ozJVIO9r5l35xF2YRqP7H&ust=1671545838827000&source=images&cd=vfe&ved=0CA8QjRxqFwoTCLinrtHvhfwCFQAAAAAdAAAAABAE",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbBOubGZIGWO7yi48jx3w0kV3qM_SFI_HIAxqOYpXpfQ&s",
     },
     cover: {
       type: String,

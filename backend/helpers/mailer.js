@@ -110,34 +110,35 @@ const auth2client = new OAuth2(
 );
 
 exports.sendVerificationEmail = async (email, name, url) => {
-  //if the access token is expired then it'll regenerate the access token
-  auth2client.setCredentials({
-    refresh_token: MAILING_REFRESH,
-  });
+  try {
+    //if the access token is expired then it'll regenerate the access token
+    auth2client.setCredentials({
+      refresh_token: MAILING_REFRESH,
+    });
 
-  const accessToken = await auth2client.getAccessToken();
+    const accessToken = await auth2client.getAccessToken();
 
-  const smtp = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      type: "OAuth2",
-      user: EMAIL,
-      clientId: MAILING_ID,
-      clientSecret: MAILING_SECRET,
-      refreshToken: MAILING_REFRESH,
-      accessToken,
-    },
-  });
+    const smtp = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        type: "OAuth2",
+        user: EMAIL,
+        clientId: MAILING_ID,
+        clientSecret: MAILING_SECRET,
+        refreshToken: MAILING_REFRESH,
+        accessToken,
+      },
+    });
 
-  const mailOptions = {
-    from: EMAIL,
-    to: email,
-    html: `<div style="max-width:700px;margin-bottom:1rem;display:flex;align-items:center;gap:10px;font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;font-weight:600;color:#3b5998">
+    const mailOptions = {
+      from: EMAIL,
+      to: email,
+      html: `<div style="max-width:700px;margin-bottom:1rem;display:flex;align-items:center;gap:10px;font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;font-weight:600;color:#3b5998">
 <img style="width:30px" src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="" />
 <span>Action requires : Activate your facebook account</span>
 </div>
 <div style="padding:.5rem 0;border-top:1px solid #e5e5e5;border-bottom:1px solid #e5e5e5;font-size:17px;font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;font-weight:600">
-<span>Hello Jack</span>
+<span>Hello ${name}</span>
 <div style="padding:10px 0;margin-bottom:.5rem">
 <span style="padding:.5rem 0">
 You recently created an account on Facebook. To complete your
@@ -151,11 +152,13 @@ registered on facebook, you can share photos, organize events and much
 moore.</span>
 </div>
 </div>`,
-    subject: "Facebook verification email",
-  };
-
-  smtp.sendMail(mailOptions, (err, res) => {
-    if (err) return err;
-    return res;
-  });
+      subject: "Facebook verification email",
+    };
+    smtp.sendMail(mailOptions, (err, res) => {
+      if (err) throw new Error(err);
+      return res;
+    });
+  } catch (error) {
+    console.log("error", error);
+  }
 };
